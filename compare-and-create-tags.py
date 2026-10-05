@@ -68,7 +68,7 @@ if remote_latest_tag in local_tag_list:
     print(f"{remote_latest_tag} already exists, exit.")
 else:
     print(f"{remote_latest_tag} does not exists, proceed.")
-    print("Now testing the build")
+    print("Now testing the build.")
     _run(f"bash build-vole.sh {remote_latest_tag}")
     print("Build is OK.")
     print("Now creating new local tag")
@@ -77,4 +77,4 @@ else:
     res = _run("git tag --list")
     local_tag_list = res.stdout.splitlines()
     print(f"Local repository now has tag list: {local_tag_list}")
-    print("All OK, exit")
+    print("All OK, exit.")
