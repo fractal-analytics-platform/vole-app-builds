@@ -60,8 +60,8 @@ if remote_latest_tag in local_tag_list:
     print(f"{remote_latest_tag} already exists, exit.")
 else:
     print("Now creating new local tag")
-    # _run(f"git tag -m {remote_latest_tag} -a {remote_latest_tag}") # FIXME
-    # _run("git push --tags") # FIXME
+    _run(f"git tag -m {remote_latest_tag} -a {remote_latest_tag}")
+    _run("git push --tags")
     res = _run("git tag --list")
     local_tag_list = res.stdout.splitlines()
     print(f"Local repository now has tag list: {local_tag_list}")
