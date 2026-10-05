@@ -67,7 +67,7 @@ print(
 if remote_latest_tag in local_tag_list:
     print(f"{remote_latest_tag} already exists, exit.")
 else:
-    # Fail if build fails
+    print(f"{remote_latest_tag} does not exists, proceed.")
     print("Now testing the build")
     _run(f"bash build-vole.sh {remote_latest_tag}")
     print("Build is OK.")
