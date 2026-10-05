@@ -7,6 +7,7 @@ if [ "$#" -lt 1 ]; then
   exit 2
 fi
 
+rm -rf ./vole-app
 git clone https://github.com/allen-cell-animated/vole-app.git
 cd vole-app
 git checkout "$1"
