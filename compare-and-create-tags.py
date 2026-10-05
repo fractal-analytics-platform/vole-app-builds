@@ -13,12 +13,13 @@ REMOTE_REPO_OWNER = "allen-cell-animated"
 REMOTE_REPO_NAME = "vole-app"
 LOCAL_REPO_NAME = "vole-app-builds-test"
 
-_run = lambda cmd: subprocess.run(
-    shlex.split(cmd),
-    capture_output=True,
-    encoding="utf-8",
-    check=True,
-)
+def _run(cmd: str) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        shlex.split(cmd),
+        capture_output=True,
+        encoding="utf-8",
+        check=True,
+    )
 
 # Fail for dirty status
 _run("git pull --tags")
@@ -59,6 +60,10 @@ print(
 if remote_latest_tag in local_tag_list:
     print(f"{remote_latest_tag} already exists, exit.")
 else:
+    # Fail if build fails
+    print("Now testing the build")
+    _run(f"bash build-vole.sh {remote_latest_tag}")
+    print("Build is OK.")
     print("Now creating new local tag")
     _run(f"git tag -m {remote_latest_tag} -a {remote_latest_tag}")
     _run("git push --tags")
