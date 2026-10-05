@@ -13,6 +13,7 @@ REMOTE_REPO_OWNER = "allen-cell-animated"
 REMOTE_REPO_NAME = "vole-app"
 LOCAL_REPO_NAME = "vole-app-builds-test"
 
+
 def _run(cmd: str) -> subprocess.CompletedProcess:
     res = subprocess.run(
         shlex.split(cmd),
@@ -21,12 +22,11 @@ def _run(cmd: str) -> subprocess.CompletedProcess:
         check=False,
     )
     if res.returncode != 0:
-        sys.exit(
-            f"Running {cmd=} failed with {res.returncode}.\n"
-            f"{res.stdout=}\n"
-            f"{res.stderr=}\n"
-        )
+        print(f"STDOUT:\n{res.stdout}\n")
+        print(f"STDERR:\n{res.stderr}\n")
+        sys.exit(f"Running {cmd=} failed with {res.returncode}.")
     return res
+
 
 # Fail for dirty status
 _run("git pull --tags")
@@ -78,4 +78,3 @@ else:
     local_tag_list = res.stdout.splitlines()
     print(f"Local repository now has tag list: {local_tag_list}")
     print("All OK, exit")
-
