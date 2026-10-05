@@ -22,8 +22,8 @@ def _run(cmd: str) -> subprocess.CompletedProcess:
         check=False,
     )
     if res.returncode != 0:
-        print(f"STDOUT:\n{res.stdout}\n")
-        print(f"STDERR:\n{res.stderr}\n")
+        print(f"STDOUT:\n{res.stdout}\n", file=sys.stderr)
+        print(f"STDERR:\n{res.stderr}\n", file=sys.stderr)
         sys.exit(f"Running {cmd=} failed with {res.returncode}.")
     return res
 
