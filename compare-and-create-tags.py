@@ -29,7 +29,6 @@ def _run(cmd: str) -> subprocess.CompletedProcess:
 
 
 # Fail for dirty status
-_run("git pull --tags")
 res = _run("git status --porcelain")
 if res.stdout.strip() != "":
     print(res.stdout, file=sys.stderr)
@@ -37,6 +36,7 @@ if res.stdout.strip() != "":
 print("Status is clean, proceed.")
 
 # Local-repository info
+_run("git pull --tags")
 res = _run("git tag --list")
 local_tag_list = res.stdout.splitlines()
 print(f"Local repository has tag list: {local_tag_list}")
