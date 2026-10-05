@@ -14,12 +14,19 @@ REMOTE_REPO_NAME = "vole-app"
 LOCAL_REPO_NAME = "vole-app-builds-test"
 
 def _run(cmd: str) -> subprocess.CompletedProcess:
-    return subprocess.run(
+    res = subprocess.run(
         shlex.split(cmd),
         capture_output=True,
         encoding="utf-8",
-        check=True,
+        check=False,
     )
+    if res.returncode != 0:
+        sys.exit(
+            f"Running {cmd=} failed with {res.returncode}.\n"
+            f"{res.stdout=}\n"
+            f"{res.stderr=}\n"
+        )
+    return res
 
 # Fail for dirty status
 _run("git pull --tags")
