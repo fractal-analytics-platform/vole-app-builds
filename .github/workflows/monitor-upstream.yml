@@ -50,7 +50,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       # Create the new issue
-      - run: gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "$ISSUE_LABEL" --label "$ISSUE_LABEL" --assignee tcompa
+      - run: gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "$ISSUE_LABEL" --label "$ISSUE_LABEL" --assignee tcompa --assignee zonia3000
         if: ${{ steps.get-latest.outputs.tag_is_new == 'True' && steps.existing-issue.outputs.number == 0 }}
         env:
           ISSUE_TITLE: ${{ steps.get-latest.outputs.issue_title }}

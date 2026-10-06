@@ -55,9 +55,9 @@ if tag_is_new:
     print(f"{remote_latest_tag} does not exists, create a new issue.")
     issue_title = f"New vole-app release ({remote_latest_tag})"
     issue_body = (
-        f"Project {REMOTE_REPO_OWNER}/{REMOTE_REPO_NAME} has a new release, for "
-        f"tag {remote_latest_tag} - see "
-        f"https://github.com/{REMOTE_REPO_OWNER}/{REMOTE_REPO_NAME}/releases. "
+        f"Project `{REMOTE_REPO_OWNER}/{REMOTE_REPO_NAME}` has a new release, with "
+        f"tag {remote_latest_tag} "
+        f"(https://github.com/{REMOTE_REPO_OWNER}/{REMOTE_REPO_NAME}/releases). "
         "You should create a new tag on the current repository via "
         f"`git tag -m {remote_latest_tag} -a {remote_latest_tag} && git push --tags` "
         "to trigger a new build."
