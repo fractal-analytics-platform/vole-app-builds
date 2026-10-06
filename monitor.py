@@ -52,7 +52,7 @@ print(
 )
 tag_is_new = remote_latest_tag not in local_tag_list
 if tag_is_new:
-    print(f"{remote_latest_tag} does not exists. create issue.")
+    print(f"{remote_latest_tag} does not exists, create a new issue.")
     issue_title = f"New vole-app release ({remote_latest_tag})"
     issue_body = (
         f"Project {REMOTE_REPO_OWNER}/{REMOTE_REPO_NAME} has a new release, for "
