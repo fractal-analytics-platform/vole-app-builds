@@ -57,12 +57,9 @@ if tag_is_new:
     issue_body = (
         f"Project {REMOTE_REPO_OWNER}/{REMOTE_REPO_NAME} has a new release, for "
         f"tag {remote_latest_tag} - see "
-        f"https://github.com/{REMOTE_REPO_OWNER}/{REMOTE_REPO_NAME}/releases.\n"
-        "Create a new tag on this repository via\n"
-        "```\n"
-        f"git tag -m {remote_latest_tag} -a {remote_latest_tag}\n"
-        "git push --tags\n"
-        "```\n"
+        f"https://github.com/{REMOTE_REPO_OWNER}/{REMOTE_REPO_NAME}/releases. "
+        "You should create a new tag on this repository via "
+        f"`git tag -m {remote_latest_tag} -a {remote_latest_tag} && git push --tags` "
         "to trigger a new build."
     )
     issue_label = remote_latest_tag
