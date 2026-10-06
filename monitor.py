@@ -71,7 +71,6 @@ else:
     issue_title = ""
     issue_body = ""
     issue_label = ""
-    tag_is_new = True
 
 
 if github_output := os.getenv("GITHUB_OUTPUT", None):
