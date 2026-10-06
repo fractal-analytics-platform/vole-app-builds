@@ -1,32 +1,58 @@
-name: Monitor upstream project
+name: New versions
+
 on:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: '0 8 * * *'  # 8AM UTC every day
   workflow_dispatch:
 
 permissions: {}
 
 jobs:
-  monitor:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+  check:
+    name: Check new versions
+    runs-on: ubuntu-26.04
     permissions:
-      contents: write
+      contents: read
+      issues: write  # Needed to open/close issues
 
     steps:
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          persist-credentials: true
+          persist-credentials: false
 
-      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
           version: "latest-known"
-          enable-cache: false
           python-version: "3.14"
+          enable-cache: false
+    
+      - run: uv run monitor.py
+        id: get-latest
 
-      - run: git config --global user.email "vole-app-monitor@example.org"
-      - run: git config --global user.name "Vole-App Monitor"
-      
-      - run: uv run compare-and-create-tags.py
+      # Create dedicated label for the target version
+      - run: gh label create "$ISSUE_LABEL" --force
+        if: ${{ steps.get-latest.outputs.tag_is_new == 'True' }}
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-          PYTHONUNBUFFERED: "1"
+          ISSUE_LABEL: ${{ steps.get-latest.outputs.issue_label }}
+          GH_TOKEN: ${{ github.token }}
+
+      # Check whether the same issue already exists, so that we do not recreate it
+      - run: |
+          echo number=$(gh issue list --label "$ISSUE_LABEL" --json number --jq '.[].number' | wc -l) >> $GITHUB_OUTPUT
+        id: existing-issue
+        if: ${{ steps.get-latest.outputs.tag_is_new == 'True' }}
+        env:
+          ISSUE_LABEL: ${{ steps.get-latest.outputs.issue_label }}
+          GH_TOKEN: ${{ github.token }}
+
+      # Create the new issue
+      - run: gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "$ISSUE_LABEL" --label "$ISSUE_LABEL" --assignee tcompa
+        if: ${{ steps.get-latest.outputs.tag_is_new == 'True' && steps.existing-issue.outputs.number == 0 }}
+        env:
+          ISSUE_TITLE: ${{ steps.get-latest.outputs.issue_title }}
+          ISSUE_BODY: ${{ steps.get-latest.outputs.issue_body }}
+          ISSUE_LABEL: ${{ steps.get-latest.outputs.issue_label }}
+          GH_TOKEN: ${{ github.token }}
