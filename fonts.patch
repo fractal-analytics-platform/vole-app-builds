@@ -1,36 +1,22 @@
-diff --git a/postcss.config.js b/postcss.config.js
-index 794ad9d8..21a11494 100644
---- a/postcss.config.js
-+++ b/postcss.config.js
-@@ -9,6 +9,6 @@ module.exports = {
-         require('postcss-simple-vars'),
-         require('postcss-mixins'),
-         require('postcss-extend-rule'),
--        require('postcss-url')({url:"copy", basePath:path.resolve(__dirname, "src/aics-image-viewer"), assetsPath:"../../../fonts"})
-+        require('postcss-url')({url:"copy", basePath:path.resolve(__dirname, "src/aics-image-viewer"), assetsPath:"../../../fonts", filter: (asset) => !asset.absolutePath.includes('@fontsource/open-sans')})
-     ]
--};
-\ No newline at end of file
-+};
-diff --git a/public/gh-reroute/404.html b/public/gh-reroute/404.html
-index 2e7e35d6..21db0fa8 100644
---- a/public/gh-reroute/404.html
-+++ b/public/gh-reroute/404.html
-@@ -36,9 +36,6 @@
+diff --git a/404.html b/404.html
+index 6eb5d823..73a17c3c 100644
+--- a/404.html
++++ b/404.html
+@@ -39,9 +39,6 @@
          }
        }
      </style>
 -    <link rel="preconnect" href="https://fonts.googleapis.com" />
 -    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 -    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
-     <!-- Webpack will inject the `gh-reroute/index.tsx` script into this webpage during build. -->
+     <script type="module" src="/website/routes/gh_404.tsx"></script>
    </head>
    <body>
-diff --git a/public/index.html b/public/index.html
-index f07918f8..b35e2d76 100644
---- a/public/index.html
-+++ b/public/index.html
-@@ -80,12 +80,6 @@
+diff --git a/index.html b/index.html
+index 30d4e10d..853b9cdf 100644
+--- a/index.html
++++ b/index.html
+@@ -81,12 +81,6 @@
          height: 100%;
        }
      </style>
@@ -40,9 +26,23 @@ index f07918f8..b35e2d76 100644
 -      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
 -      rel="stylesheet"
 -    />
+     <script type="module" src="/website/main.tsx"></script>
    </head>
    <body style="margin: 0">
-     <% if (gtmId) { %>
+diff --git a/postcss.config.js b/postcss.config.js
+index 794ad9d8..21a11494 100644
+--- a/postcss.config.js
++++ b/postcss.config.js
+@@ -9,6 +9,6 @@ module.exports = {
+         require('postcss-simple-vars'),
+         require('postcss-mixins'),
+         require('postcss-extend-rule'),
+-        require('postcss-url')({url:"copy", basePath:path.resolve(__dirname, "src/aics-image-viewer"), assetsPath:"../../../fonts"})
++        require('postcss-url')({url:"copy", basePath:path.resolve(__dirname, "src/aics-image-viewer"), assetsPath:"../../../fonts", filter: (asset) => (!asset.absolutePath.includes('@fontsource/open-sans') && !asset.absolutePath.includes('materialicons/materialicons.woff2'))})
+     ]
+-};
+\ No newline at end of file
++};
 diff --git a/src/aics-image-viewer/assets/styles/globals.css b/src/aics-image-viewer/assets/styles/globals.css
 index 1deb536a..f5fb7131 100644
 --- a/src/aics-image-viewer/assets/styles/globals.css
@@ -52,7 +52,7 @@ index 1deb536a..f5fb7131 100644
    font-style: normal;
    font-weight: 400;
 -  src: url(https://fonts.gstatic.com/s/materialicons/v29/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2)
-+  src: url("../aics-image-viewer/assets/fonts/materialicons/materialicons.woff2")
++  src: url("../fonts/materialicons/materialicons.woff2")
      format("woff2");
  }
 diff --git a/src/index.ts b/src/index.ts
