@@ -8,6 +8,7 @@ The upstream Vol-E App is released under the [BSD 3-Clause License (Copyright 20
 
 The build script is available at [`build-vole.sh`](./build-vole.sh).
 The differences with respect to the upstream repository are:
+
     * We disable tracking, by setting `VITE_GTM_ID=`.
     * We install `@fontsource/open-sans`.
     * We bundle `materialicons.woff2` in the `assets` folder of the build.
