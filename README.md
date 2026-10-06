@@ -2,7 +2,7 @@
 
 This repository is used to generate pre-built versions of the [Vol-E App](https://github.com/allen-cell-animated/vole-app), with the configuration suitable for usage within the [Fractal platform](https://fractal-analytics-platform.github.io).
 
-> NOTE: The upstream Vol-E App is released under the [BSD 3-Clause License (Copyright 2017-2026, Allen Institute)](https://github.com/allen-cell-animated/vole-app/blob/main/LICENSE).
+> **NOTE**: The upstream Vol-E App is released under the [BSD 3-Clause License (Copyright 2017-2026, Allen Institute)](https://github.com/allen-cell-animated/vole-app/blob/main/LICENSE).
 
 ---
 
