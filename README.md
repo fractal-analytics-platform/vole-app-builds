@@ -7,5 +7,9 @@ The upstream Vol-E App is released under the [BSD 3-Clause License (Copyright 20
 ---
 
 More details:
-1. The build script is available at [`build-vole.sh`](./build-vole.sh), and it also applies the [`fonts.patch`](./fonts.patch) patch.
+1. The build script is available at [`build-vole.sh`](./build-vole.sh). The differences with the upstream repository are:
+    * We disable tracking, by setting `VITE_GTM_ID=`.
+    * We install `@fontsource/open-sans`.
+    * We bundle `materialicons.woff2` in the `assets` folder of the build.
+    * We apply the [`fonts.patch`](./fonts.patch) patch.
 2. A helper script to compare the latest upstream tag with the existing ones and trigger a new build can be run via `uv run compare-and-create-tags.py`.
